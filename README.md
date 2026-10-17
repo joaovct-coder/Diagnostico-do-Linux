@@ -29,34 +29,12 @@ Firefox tem uma estrutura rica para o diagnóstico: ele cria vários processos f
 
 | Máquina | VM (VirtualBox) — usuário vboxuser |
 
-| Instalação do Firefox | Pacote Snap (/snap/firefox/6966/...) |
+| Instalação do Firefox |
 
 3. Como executar a aplicação analisada
 firefox &
 Firefox foi iniciado normalmente pela interface gráfica. Quando o processo inicial termina, o Firefox é “adotado” pelo init/systemd (PID 1). Por isso o PPID observado é 1.
 
-4. Comandos utilizados
-Lista completa e comentada em comandos/comandos-utilizados.md.
-
-pgrep -a firefox
-
-ps -o pid,ppid,stat,pri,ni,%cpu,%mem,cmd -p 24287
-
-pstree -p 24287
-
-ps -L -p 24287
-
-cat /proc/24287/status
-
-cat /proc/24287/stat
-
-cat /proc/24287/limits
-
-kill -STOP 24287
-
-kill -CONT 24287
-
-renice 5 -p 24287
 
 kill -TERM 24287
 
