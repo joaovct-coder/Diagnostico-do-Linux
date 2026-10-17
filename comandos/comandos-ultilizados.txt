@@ -1,0 +1,28 @@
+1. Sinais (PID 11537, Isolated Web Co)
+$ kill -STOP 11537
+
+$ ps -p 11537 -o pid,stat,comm
+    PID STAT COMMAND
+  11537 Tl   Isolated Web Co
+
+$ kill -CONT 11537
+
+$ ps -p 11537 -o pid,stat,comm
+    PID STAT COMMAND
+  11537 Sl   Isolated Web Co
+
+$ ps -p 11537 -o pid,ppid,stat,ni,%cpu,%mem,comm
+    PID    PPID STAT  NI %CPU %MEM COMMAND
+  11537   11113 Sl     0  1.4  4.3 Isolated Web Co
+
+$ kill -TERM 11537
+
+$ ps -p 11537 -o pid,stat,comm
+    PID STAT COMMAND
+
+Depois do kill -TERM só o cabeçalho apareceu, então não havia mais processo com esse PID.
+
+2. PID e PPID (PID 17839)
+$ ps -p 17839 -o pid,ppid,stat,ni,%cpu,%mem,nlwp,comm
+    PID    PPID STAT  NI %CPU %MEM NLWP COMMAND
+  17839   10420 Sl     0  1.0  5.9   24 Isolated Web Co
