@@ -62,3 +62,8 @@ Nice
 Nos dois processos consultados, o nice (NI) estava em 0: no 11537 e no 17839.
 O stat do 17839 traz prioridade 20 e nice 0, que são os valores padrão.
 O nice indica a prioridade de execução: valores maiores pedem menos CPU, e 0 é o padrão.
+
+Nice
+Nos dois processos consultados, o nice (NI) estava em 0: no 11537 e no 17839.
+O stat do 17839 traz prioridade 20 e nice 0, que são os valores padrão.
+O nice indica a prioridade de execução: valores maiores pedem menos CPU, e 0 é o padrão.
