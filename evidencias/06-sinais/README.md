@@ -1,26 +1,56 @@
-# 06 — Sinais de processo
+# Evidência — Sinais SIGSTOP, SIGCONT, SIGTERM
 
-## Objetivo
-Documentar pausa, retomada e solicitação de encerramento de um processo de teste.
+Ambiente: `xunbuntotest@xubuntohost`
+Processo alvo: PID 11537 (`Isolated Web Co`, processo de conteúdo do Firefox)
 
-## Comandos
-Use somente um processo de teste que você tenha escolhido e confira o PID imediatamente antes de agir:
+## SIGSTOP
+
 ```bash
-ps -p PID -o pid,ppid,stat,comm
-kill -STOP PID
-ps -p PID -o pid,stat,comm
-kill -CONT PID
-ps -p PID -o pid,stat,comm
-kill -TERM PID
-ps -p PID -o pid,stat,comm
+kill -STOP 11537
+ps -p 11537 -o pid,stat,comm
+```
+```
+    PID STAT COMMAND
+  11537 Tl   Isolated Web Co
+```
+Estado passou de `Sl` para `Tl` (stopped).
+
+## SIGCONT
+
+```bash
+kill -CONT 11537
+ps -p 11537 -o pid,stat,comm
+```
+```
+    PID STAT COMMAND
+  11537 Sl   Isolated Web Co
+```
+Estado voltou de `Tl` para `Sl` (sleeping) — processo retomado.
+
+## SIGTERM
+
+Estado do processo antes do sinal:
+
+```bash
+ps -p 11537 -o pid,ppid,stat,ni,%cpu,%mem,comm
+```
+```
+    PID    PPID STAT  NI %CPU %MEM COMMAND
+  11537   11113 Sl     0  1.4  4.3 Isolated Web Co
 ```
 
-## Evidências
-Adicione capturas reais de:
-- estado antes do sinal;
-- estado após `SIGSTOP` (normalmente inclui `T`);
-- estado após `SIGCONT`;
-- resultado após `SIGTERM` (o processo pode já não existir).
+Envio do sinal:
 
-## Interpretação
-Explique o que aconteceu em cada etapa. O `SIGTERM` solicita o encerramento; documente qualquer falha de aba ou efeito observado sem afirmar causalidade que as evidências não comprovem.
+```bash
+kill -TERM 11537
+```
+
+Verificação:
+
+```bash
+ps -p 11537
+```
+```
+    PID TTY          TIME CMD
+(sem saída — processo encerrado)
+```
