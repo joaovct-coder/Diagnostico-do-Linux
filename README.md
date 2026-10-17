@@ -23,19 +23,20 @@ Firefox tem uma estrutura rica para o diagnóstico: ele cria vários processos f
 2. Ambiente utilizado
 | Item | Detalhe |
 
-|------|---------|
-
 | Distribuição | Ubuntu |
 
 | Máquina | VM (VirtualBox) — usuário vboxuser |
 
 | Instalação do Firefox |
 
-3. Como executar a aplicação analisada
-firefox &
-Firefox foi iniciado normalmente pela interface gráfica. Quando o processo inicial termina, o Firefox é “adotado” pelo init/systemd (PID 1). Por isso o PPID observado é 1.
+Conclusão
 
+Para a realização deste trabalho, foram utilizados o Oracle VM VirtualBox, para criar e executar a máquina virtual, o sistema operacional Xubuntu Linux, para realizar os testes, e o navegador Mozilla Firefox, utilizado como aplicação para analisar o comportamento dos processos.
 
-kill -TERM 24287
+A finalidade do trabalho foi compreender, na prática, como o Linux gerencia seus processos e threads. Foram identificados o PID e o PPID dos processos, analisadas as informações disponíveis no diretório /proc e observadas as threads associadas ao Firefox. A análise de threads permitiu verificar que um processo pode conter várias tarefas de execução, responsáveis por diferentes atividades da aplicação, e que sua quantidade pode variar durante o funcionamento do programa.
 
-ps -p 24287
+Também foram realizados testes com os sinais SIGSTOP, SIGCONT e SIGTERM, para observar, respectivamente, a suspensão, a retomada e a solicitação de encerramento de um processo.
+
+Além disso, foi utilizado o comando nice, que permite iniciar um processo com uma prioridade de execução ajustada. Também foi estudado o comando renice, que permite modificar a prioridade de um processo que já está em execução. No Linux, valores de nice maiores representam menor prioridade de agendamento, enquanto valores menores representam maior prioridade, respeitadas as permissões do usuário.
+
+Conclui-se que a atividade contribuiu para compreender o funcionamento do gerenciamento de processos, threads, sinais e prioridades no Linux, relacionando os conceitos teóricos de Sistemas Operacionais com testes práticos realizados no Xubuntu.
