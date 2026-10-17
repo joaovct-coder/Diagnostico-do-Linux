@@ -1,0 +1,36 @@
+DIAGNÓSTICO DE PROCESSOS EM LINUX
+
+Aplicação simples usada como objeto do diagnóstico de processos.
+Ela roda indefinidamente, possui uma thread principal e uma thread
+de trabalho (worker), o que permite observar múltiplas threads
+e coletar estado/CPU/memória em diferentes momentos.
+
+Objetivo: observar o efeito dos sinais SIGSTOP, SIGCONT e SIGTERM sobre um processo em execução e consultar as informações que o sistema mostra sobre ele (PID, PPID, estado, CPU, memória e threads).
+
+Ambiente: Xubuntu, usuário xunbuntotest@xubuntohost. O processo-alvo foi o Isolated Web Co, um processo de conteúdo do Firefox, PID 11537, com PPID 11113.
+
+Procedimento e resultados:
+
+Estado inicial: o ps mostrou o processo em Sl (dormindo, multithread), nice 0, 1,4 % de CPU e 4,3 % de memória.
+SIGSTOP: com kill -STOP 11537, o estado passou para Tl. O processo ficou parado, mas continuou na memória.
+SIGCONT: com kill -CONT 11537, o estado voltou para Sl, e o processo foi retomado normalmente.
+SIGTERM: com kill -TERM 11537, o ps -p 11537 passou a mostrar só o cabeçalho. O sistema não encontrou mais um processo com esse PID, o que é compatível com o encerramento do processo que atendia à página do Firefox.
+
+Consulta de PID e PPID: em outra consulta, o processo 17839 (também Isolated Web Co) apareceu com PPID 10420, estado Sl, nice 0, 1,0 % de CPU, 5,9 % de memória e 24 threads.
+
+Conclusões:
+
+O SIGSTOP pausa o processo sem encerrá-lo, e o SIGCONT o retoma de onde parou.
+O SIGTERM pede o encerramento, e o processo deixou de existir depois dele.
+Os valores de CPU e memória mudam com o uso do navegador, então valem só para o momento da consulta.
+
+Limitações:
+
+O resultado do SIGTERM, isolado, não prova que ele foi a única causa do encerramento.
+Os PIDs 11537 e 17839 são de processos diferentes, e o segundo foi consultado em outra sessão (xubuntu@xubuntu). Os dois conjuntos de dados não devem ser misturados como se fossem do mesmo processo.
+Eu não tenho prints de /proc/PID/io, /proc/PID/cmdline nem do renice, então esses itens ficam sem resultado.
+
+
+
+
+Claude é uma IA e pode cometer erros. Confira sempre as respostas.
