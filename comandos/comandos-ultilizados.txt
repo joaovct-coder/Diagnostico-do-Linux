@@ -1,3 +1,8 @@
+2. PID e PPID (PID 17839)
+$ ps -p 17839 -o pid,ppid,stat,ni,%cpu,%mem,nlwp,comm
+    PID    PPID STAT  NI %CPU %MEM NLWP COMMAND
+  17839   10420 Sl     0  1.0  5.9   24 Isolated Web Co
+
 1. Sinais (PID 11537, Isolated Web Co)
 $ kill -STOP 11537
 
@@ -22,7 +27,3 @@ $ ps -p 11537 -o pid,stat,comm
 
 Depois do kill -TERM só o cabeçalho apareceu, então não havia mais processo com esse PID.
 
-2. PID e PPID (PID 17839)
-$ ps -p 17839 -o pid,ppid,stat,ni,%cpu,%mem,nlwp,comm
-    PID    PPID STAT  NI %CPU %MEM NLWP COMMAND
-  17839   10420 Sl     0  1.0  5.9   24 Isolated Web Co
