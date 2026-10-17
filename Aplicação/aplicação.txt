@@ -30,7 +30,35 @@ O resultado do SIGTERM, isolado, não prova que ele foi a única causa do encerr
 Os PIDs 11537 e 17839 são de processos diferentes, e o segundo foi consultado em outra sessão (xubuntu@xubuntu). Os dois conjuntos de dados não devem ser misturados como se fossem do mesmo processo.
 Eu não tenho prints de /proc/PID/io, /proc/PID/cmdline nem do renice, então esses itens ficam sem resultado.
 
+Diretório /proc
 
+Consulta: cat /proc/17839/status, cat /proc/17839/stat e cat /proc/17446/limits.
 
+status (PID 17839):
 
-Claude é uma IA e pode cometer erros. Confira sempre as respostas.
+O processo é o Isolated Web Co, em estado S (dormindo), com PPID 10420.
+Tgid e Pid são iguais (17839), então é a thread principal. TracerPid é 0, ou seja, não há depurador anexado.
+Roda com o usuário comum (Uid e Gid 1000), com FDSize 512 e Kthread 0, portanto não é thread do kernel.
+Memória virtual: VmPeak de 36532856 kB, VmSize de 3058268 kB e VmLck de 0 kB, sem memória travada na RAM.
+
+stat (PID 17839):
+
+É o mesmo conjunto de dados em formato numérico, em uma linha só.
+Estado S, PPID 10420, grupo e sessão 2846, sem terminal controlador (tty_nr 0).
+Falhas de página: 1368800 menores e 4 maiores.
+Tempo de CPU: utime 18799 e stime 11371, em ticks do relógio.
+Prioridade 20, nice 0 e 26 threads.
+Memória: vsize de 3136942080 bytes e rss de 118562 páginas.
+
+limits (PID 17446):
+
+Estes limites são de outro processo, o 17446.
+Os limites de CPU, tamanho de arquivo, dados e memória residente são unlimited.
+Pilha: 8388608 bytes (soft) e unlimited (hard).
+Core dump: 0, ou seja, desabilitado.
+Processos e sinais pendentes: 27265.
+Arquivos abertos: 65536 (soft) e 524288 (hard).
+Nice
+Nos dois processos consultados, o nice (NI) estava em 0: no 11537 e no 17839.
+O stat do 17839 traz prioridade 20 e nice 0, que são os valores padrão.
+O nice indica a prioridade de execução: valores maiores pedem menos CPU, e 0 é o padrão.
