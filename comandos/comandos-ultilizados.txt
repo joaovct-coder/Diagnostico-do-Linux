@@ -27,3 +27,17 @@ $ ps -p 11537 -o pid,stat,comm
 
 Depois do kill -TERM só o cabeçalho apareceu, então não havia mais processo com esse PID.
 
+Comandos de nice
+
+Ver o nice atual de um processo:
+
+bash
+ps -p PID -o pid,ppid,stat,pri,ni,%cpu,%mem,comm
+
+Alterar o nice de um processo em execução (renice):
+
+bash
+renice -n 5 -p PID
+
+Valores positivos (até 19) pedem menos prioridade de CPU. Qualquer usuário pode aumentar o nice dos próprios processos.
+
