@@ -1,4 +1,4 @@
-# 02 — Árvore de processos
+# 02 — Árvore de processos obs: Usado em outra pagina do firefox
 
 ## Objetivo
 Mostrar a relação entre processos e seus processos pais.
